@@ -5,19 +5,24 @@ from test_creator import TestGenerator
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
-dummy_test = '\n\nQ1. What type of language is Python?\nA. Object-Oriented \nB. Functional \nC. Interpreted \nD. Compiled\n\nCorrect Answer: C. Interpreted\n\nQ2. What does a variable in Python refer to?\nA. A constant value \nB. A function \nC. An object \nD. A string\n\nCorrect Answer: C. An object\n\nQ3. What is the correct syntax for creating a comment in Python?\nA. # Comment \nB. /* Comment */ \nC. // Comment \nD. -- Comment\n\nCorrect Answer: A. # Comment"'
+dummy_test = '\n\nQ1. What is the syntax for declaring a variable in Python?\nA. #variable\nB. var variable\nC. !variable\nD. var = variable\nCorrect Answer: D. var = variable\n\nQ2. What type of language is Python?\nA. Interpreted\nB. Compiled\nC. Assembly\nD. Machine\nCorrect Answer: A. Interpreted\n\nQ3. What type of loop is used when a set of instructions need to be repeated until a condition is met?\nA. For loop\nB. While loop\nC. Do-while loop\nD. If-else loop\nCorrect Answer: B. While loop\n\nQ4. What is the result of the following expression?\n2 + 5 * 3\nA. 23\nB. 17\nC. 11\nD. 25\nCorrect Answer: B. 17'
 
 
 class Teacher:
-    def __init__(self, topic):
-        self.topic = topic
+    def __init__(self):
+        print("Welcome! Run create_full_test() to create a test.")
 
 
-    def create_full_test(self, num_possible_answers, num_questions):
-        self.test_creator = TestGenerator(self.topic, num_possible_answers, num_questions)
+    def create_full_test(self):
+
+        topic = input("What topic would you like to create a test on? ")
+        num_possible_answers = int(input("How many possible answers would you like to have? "))
+        num_questions = int(input("How many questions would you like to have? "))
+
+        self.test_creator = TestGenerator(topic, num_possible_answers, num_questions)
         test = self.test_creator.run()
         #test = dummy_test
-        logging.info(test)
+        #logging.info(test)
         student_view = self.create_student_view(test, num_questions)
         answers = self.extract_answers(test, num_questions)
         return student_view, answers
@@ -50,7 +55,7 @@ class Teacher:
         
 
 if __name__ == "__main__":
-    teacher = Teacher("Python")
-    student_view, answers = teacher.create_full_test(4, 2)
+    teacher = Teacher()
+    student_view, answers = teacher.create_full_test()
     print(student_view)
     print(answers)

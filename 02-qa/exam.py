@@ -18,15 +18,13 @@ class Exam:
         for question, answer in answers.items():
             if answer.upper() == self.answers[question].upper()[16]:
                 correct_answers+=1
-        return correct_answers
+        return 100 * correct_answers / len(answers)
 
 
 
 if __name__ == "__main__":
-    teacher = Teacher("Python")
-    student_view, answers = teacher.create_full_test(4, 4)
-    print(student_view)
-    print(answers)
+    teacher = Teacher()
+    student_view, answers = teacher.create_full_test()
 
     exam = Exam(student_view, answers)
     student_answers = exam.take()
