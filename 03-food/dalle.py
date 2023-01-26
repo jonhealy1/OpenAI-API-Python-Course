@@ -20,7 +20,7 @@ class Dish2Image:
 
 
     def dalle2_prompt(self):
-        prompt = f"A studio photographic portrait of the following dish: '{self.title}'"
+        prompt = f"'{self.title}', professional food photography, 15mm, studio lighting"
         return prompt
 
     @staticmethod
