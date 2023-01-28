@@ -57,5 +57,8 @@ class Dish2Image:
         return image_res.status_code
 
 if __name__ == "__main__":
+    """
+    Test Dish2Image class based on the Recipe Title: Savory Tomato Apple Spaghetti
+    """
     dalle = Dish2Image("Recipe Title: Savory Tomato Apple Spaghetti")
     dalle.generate_image()

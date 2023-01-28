@@ -17,7 +17,7 @@ class Teacher:
 
         topic = input("What topic would you like to create a test on? ")
         num_possible_answers = int(input("How many possible answers would you like to have? "))
-        num_questions = int(input("How many questions would you like to have? "))
+        num_questions = int(input("How many possible answers per question would you like to have? "))
 
         self.test_creator = TestGenerator(topic, num_possible_answers, num_questions)
         test = self.test_creator.run()

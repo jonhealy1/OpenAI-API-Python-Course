@@ -3,12 +3,12 @@ import datetime
 from teacher import Teacher
 
 class Exam:
-    def __init__(self, student_view, answers, store_test=False):
+    def __init__(self, student_view, answers, store_test=False, topic=""):
         self.student_view = student_view
         self.answers = answers
 
         if store_test:
-            self.store_test()
+            self.store_test(topic)
 
     
     def take(self):
@@ -33,8 +33,8 @@ class Exam:
         return f"{correct_answers} out of {len(answers)} correct! You achieved: {grade} % : {passed}"
 
 
-    def store_test(self):
-        with open(f'Test_{datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.txt', "w") as file:
+    def store_test(self, topic):
+        with open(f'Test_{topic}_{datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.txt', "w") as file:
             for question, question_view in self.student_view.items():
                 file.write(question_view)
                 file.write("\n")
@@ -46,7 +46,7 @@ if __name__ == "__main__":
     teacher = Teacher()
     student_view, answers = teacher.create_full_test()
 
-    exam = Exam(student_view, answers, store_test=True)
+    exam = Exam(student_view, answers, store_test=True, topic=teacher.test_creator.topic)
     student_answers = exam.take()
     print(student_answers)
     grade = exam.grade(student_answers)

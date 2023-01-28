@@ -53,8 +53,16 @@ class RecipeGenerator:
                                                     temperature=0.7)
         return response
 
+    def store_recipe(self, recipe, filename):
+        with open(filename, "w") as f:
+            f.write(recipe)
+
 
 if __name__ == "__main__":
+    """
+    Test RecipeGenerator class without creating an image of the dish.
+    """
+
     gen = RecipeGenerator()
     recipe = gen.generate_recipe()
     print(recipe)
