@@ -1,5 +1,6 @@
 import inspect  # Used to transform python code to a string
 import os
+from pathlib import Path
 
 import openai
 import functions
@@ -19,19 +20,13 @@ def merge_docstring_and_function(function_string, docstring):
 ### Extract all functions from the functions.py file ###
 ### getmembers returns a tuple, where the first element is the name of the function and the second element is the function itself ###
 ### We only want the functions that are defined in the functions.py file, so we filter out the functions that are defined in other modules ###
-all_funcs = [mem for mem in inspect.getmembers(functions, inspect.isfunction)
-         if mem[1].__module__ == functions.__name__]
+
+def get_all_functions(module):
+    return [mem for mem in inspect.getmembers(module, inspect.isfunction)
+         if mem[1].__module__ == module.__name__]
 
 
-### Create a prompt for each function and ###
-### Run the prompts through the model and store the results ###
-
-functions_with_prompts = []
-for func in all_funcs:
-
-    code = inspect.getsource(func[1])
-    prompt = docstring_prompt(code)
-
+def get_openai_completion(prompt):
     response = openai.Completion.create(
                 model="code-davinci-002",
                 prompt=prompt,
@@ -42,11 +37,30 @@ for func in all_funcs:
                 presence_penalty=0.0,
                 stop=["\"\"\""] # Corresponds to """, the end of the docstring
                 )
-    
-    merged_code = merge_docstring_and_function(code, response["choices"][0]["text"])
-    functions_with_prompts.append(merged_code)
-    
+    return  response["choices"][0]["text"]
 
-with open("functions_with_prompts.py", "w") as f:
-    f.write("\n\n".join(functions_with_prompts))
+
+
+### Create a prompt for each function and ###
+### Run the prompts through the model and store the results ###
+if __name__ == "__main__":
+    functions_to_prompt = functions
+
+    all_funcs = get_all_functions(functions)
+
+    functions_with_prompts = []
+    for func in all_funcs:
+
+        code = inspect.getsource(func[1])
+        prompt = docstring_prompt(code)
+        response = get_openai_completion(prompt)
+
+        
+        merged_code = merge_docstring_and_function(code, response)
+        functions_with_prompts.append(merged_code)
+        
+
+    functions_to_prompt_name = Path(functions_to_prompt.__file__).stem
+    with open(f"{functions_to_prompt_name}_withdocstring.py", "w") as f:
+        f.write("\n\n".join(functions_with_prompts))
 

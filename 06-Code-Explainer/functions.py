@@ -33,8 +33,6 @@ def grade(correct_answer_dict, answers):
         passed = "Passed!"
     return f"{correct_answers} out of {len(answers)} correct! You achieved: {grade} % : {passed}"
 
-def vector_similarity(vec1,vec2):
-    return np.dot(np.array(vec1), np.array(vec2))
 
 def check_for_duplicate_links(path_to_new_content, links):
     urls = [str(link.get("href")) for link in links]
