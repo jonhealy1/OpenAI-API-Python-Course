@@ -9,7 +9,7 @@ recipe = gen.generate_recipe()
 print(recipe)
 ### Create an instance of the Dish2Image class ###
 dalle = Dish2Image(recipe)
-### Visualie the dish ###
+### Visualize the dish ###
 dalle.generate_image()
 ### Store the recipe in a text file ###
 gen.store_recipe(recipe, f"{dalle.title}.txt")
