@@ -7,21 +7,19 @@ import openai
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def create_prompt(title):
-    prompt = """Marcels's Website
+    prompt = """Jose's Website
+ 
+ Biography
+ I am a Python instructor teaching people machine learning!
 
-Biography
-I have a Masters degree in  Computer Science from the University of Tübingen and am currently finishing my Ph.D. I'm located in Tübingen, Germany.
-My previous work is mostly deep learning in medical imaging with a focus on anatomical tissue tracking. My core goal is to improve radiotherapy
 
-I am the instructor of the 'Deep Learning in medical Imaging' course on udemy.
+ Blog
 
-Blog
-
-Jan 31, 2023
-Title: {}
-tags: tech, machine-learning, radiology
-Summary:  I talk about the cons of machine learning in radiology. I explain why I think that AI will never replace the radiologist.
-Full text: """.format(title)
+ Jan 31, 2023
+ Title: Why AI will never replace the radiologist
+ tags: tech, machine-learning, radiology
+ Summary:  I talk about the cons of machine learning in radiology. I explain why I think that AI will never replace the radiologist.
+ Full text:""".format(title)
     return prompt
 
 def get_blog_from_openai(blog_title):
