@@ -4,7 +4,6 @@ import openai_utils
 
 ### Define your paths here
 
-PATH_TO_BLOG_REPO = Path("/Users/marci/GIT/OpenAI-API-Python-Course/04-Auto-Blog-Post/b4shy.github.io/.git/")
 #PATH_TO_BLOG_REPO = Path('C/path/to/.git')
 PATH_TO_BLOG = PATH_TO_BLOG_REPO.parent
 PATH_TO_CONTENT = PATH_TO_BLOG/"content"
