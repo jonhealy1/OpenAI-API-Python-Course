@@ -1,9 +1,0 @@
-<h1>INDEX PAGE</h1>
-
-<form  method="POST">
-    {# This hidden_tag is a CSRF security feature. #}
-    {{ form.hidden_tag() }}
-    {{ form.prompt.label }} {{form.prompt}}
-   <br>
-    {{ form.submit() }}
-</form>
